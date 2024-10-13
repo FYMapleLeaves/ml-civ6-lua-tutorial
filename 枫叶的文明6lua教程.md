@@ -6,16 +6,18 @@
 
 我们从下面的表格来理解这些部分在不同mod中的分布。
 
-| mod类型举例           | 模型 | 动画   | 音乐 | 图片和图标 | 数据库 | lua    |
-| --------------------- | ---- | ------ | ---- | ---------- | ------ | ------ |
-| 新文明/领袖           | o    |        | o    | o          | o      | option |
-| 新建筑/单位           | o    |        |      | o          | o      | option |
-| 新奇观                | o    | option | o    | o          | o      | option |
-| 皮肤mod（不影响存档） | o    |        |      |            |        |        |
-| 地图mod               |      |        |      |            | o      | option |
-| UI mod（不影响存档）  |      |        |      | option     |        | o      |
-| UI mod（影响存档）    |      |        |      | option     | o      | o      |
-| 新机制mod             |      |        |      | option     | o      | o      |
+| mod类型举例           | 模型 | 动画   | 音乐 | 图片和图标 | 数据库 | 文本   | lua    |
+| --------------------- | ---- | ------ | ---- | ---------- | ------ | ------ | ------ |
+| 新文明/领袖           | o    |        | o    | o          | o      | o      | option |
+| 新建筑/单位           | o    |        |      | o          | o      | o      | option |
+| 新奇观                | o    | option | o    | o          | o      | o      | option |
+| 翻译/汉化             |      |        |      |            |        | o      |        |
+| 皮肤mod（不影响存档） | o    |        |      | o          | option |        |        |
+| 音乐mod               |      |        | o    |            | option | option |        |
+| 地图mod               |      |        |      |            | o      | o      | option |
+| UI mod（不影响存档）  |      |        |      | option     |        |        | o      |
+| UI mod（影响存档）    |      |        |      | option     | o      |        | o      |
+| 新机制mod             |      |        |      | option     | o      |        | o      |
 
 **总之，lua用来制作图形用户界面，实现modifier不能实现的高级功能，以及自定义的新机制。**可以独立使用在UI mod中，且不影响存档。也可以和数据库搭配使用（此时影响存档）。
 
@@ -24,12 +26,15 @@ lua程序部分是我比较擅长的内容，为了新人能够更快地入门lu
 本项目长期更新，欢迎访问项目地址以获取最新版本：
 
 - [Gitee](https://gitee.com/FYMapleLeaves/maple_leaves-civ6)
+- [Github](https://github.com/FYMapleLeaves/ml-civ6-lua-tutorial)
 
 
 
 ## 致谢
 
 我要感谢所有在lua方面对我有过帮助的modder，比如Hemmelfort、浪子、nea_baraja、皮皮凯、猭音，以及黄金时代、和而不同等mod的作者们等等。本教程也得益于这些modder的优秀代码。还要感谢菜鸟教程等互联网上编程教学资源的创建者，正是他们这种奉献交流的精神才使得更多人能够快速学会编程。
+
+同时，也要感谢皮皮凯和nea_baraja参与到这个项目中来，为本文档做出的贡献。
 
 
 
@@ -43,16 +48,27 @@ lua程序部分是我比较擅长的内容，为了新人能够更快地入门lu
 - [python基础，菜鸟教程](https://www.runoob.com/python3/python3-tutorial.html)
 - [C++基础，菜鸟教程](https://www.runoob.com/cplusplus/cpp-tutorial.html)
 
-文明6教程
+lua手册和运行环境
 
+- 云风大佬翻译的lua5.3[中文手册](https://cloudwu.github.io/lua53doc/contents.html)
+- 一个lua[在线运行环境](https://wiki.luatos.com/_static/luatos-emulator/lua.html)（避免安装lua的麻烦，如果侵权请联系我删除）
+
+文明6教程和在线资源
+
+- 文明6官方文档，可以在启动development tools之后，选择documentations，即可查看。内容是英文的，也可以查看皮皮凯的中文翻译版。
 - Hemmelfort的[Github](https://github.com/Hemmelfort/Civ6ModdingNotes)和[Gitee](https://gitee.com/Hemmelfort/Civ6ModdingNotes)，以及b站[视频](https://www.bilibili.com/video/BV1VW411U7tN/)和专栏。视频各方面都有涉及，方便快速入门。笔记的modinfo和lua部分很值得看。
-- 兰德里奥的[文明-Mod制作教程 (gitbook.io)](https://haojun0823.gitbook.io/randerion-civ-mod-guide/)，这个主要是mod基础和数据库部分，不涉及lua，但是也很值得一看。
-- 皮皮凯的[Github](https://github.com/X-PPK/pk-civ6)和[Gitee](https://gitee.com/XPPK/pk-civ6)，对数据库各个表的总结很详细，也有一些高级用法，还有对文明6官方教程的翻译。
-- 优妮的新文明[音乐模板](https://github.com/dwughjsd/LandsolYuni_civ6mod)，是目前最规范的音乐做法，不涉及lua。
+- 兰德里奥的[文明-Mod制作教程 (gitbook.io)](https://haojun0823.gitbook.io/randerion-civ-mod-guide/)，主要是mod基础和数据库部分，不涉及lua，但是也很值得一看。
+- 笑笑的教程[视频](https://space.bilibili.com/28009034/channel/collectiondetail?sid=485467)，主要是数据库部分，以及sql语言。
+- DeepLogic的教程[视频](https://www.bilibili.com/video/BV1ev411M7o6/)，是对H佬视频的补充，具体演示了怎样在数据库中找到文明特性的条目，以及怎样去修改它。
+- 皮皮凯的[Github](https://github.com/X-PPK/pk-civ6)和[Gitee](https://gitee.com/XPPK/pk-civ6)，对数据库各个表的总结很详细，也有一些高级用法，还有对文明6官方文档的翻译。
+- 优妮的mod文明[音乐模板](https://github.com/dwughjsd/LandsolYuni_civ6mod)，是目前最规范的音乐做法，不涉及lua。
+- 八一吉运的mod文明制作[笔记](https://www.bilibili.com/read/cv13701774/)，可以作为H佬视频的补充，不涉及lua。
 - Sukritact的lua接口总结[网站](https://sukritact.github.io/Civilization-VI-Modding-Knowledge-Base/)。
+- Sukritact的mod制作[在线工具](https://www.sukrittan.com/modappsindex/)，包括真实地图选择开局位置、配置玩家颜色等。
+- 夏凉凉凉的[单位模型教程](https://www.bilibili.com/video/BV1sm411r7pj)，独一份的中文单位模型教程。
 - 网页版[文明百科](https://www.civilopedia.net/zh-CN/gathering-storm/concepts/intro)，查阅很方便。尤其是查某个东西的变量名，就在网址最后一层。
 - 文明6中文社区mod制作交流QQ群（711403691）。
-- Steam格式帮助。在b站能搜到有人转载的内容。或者打开库里任意一款游戏，到商店页面，点击写评测，也能看到格式帮助。
+- Steam格式帮助。可以查看[b站专栏](https://www.bilibili.com/read/cv12800666/)。或者打开库里任意一款游戏，到商店页面，点击写评测，也能看到格式帮助。
 
 文明6常用目录
 
@@ -61,13 +77,52 @@ lua程序部分是我比较擅长的内容，为了新人能够更快地入门lu
 - 文明6游戏文件目录（Steam）：**\Steam\steamapps\common\Sid Meier's Civilization VI**
 - Steam创意工坊mod文件目录：**\Steam\steamapps\workshop\content\289070**
 
+
+
 ### Chapter1: lua基础语法
 
-学习过C或者python等编程语言的人，在接触lua之后上手会比较快。本节我们讲解lua基础，默认读者已经有一定的编程基础（如果没有的话还是去看Chapter0的lua基础吧，这一章的内容是给有其他语言基础的朋友们看的）。
+学习过C或者python等编程语言的人，在接触lua之后上手会比较快。本节我们讲解lua基础，希望读者已经有一定的编程基础。也就是，至少较为系统地学习过至少一门编程语言。如果您完全没有接触过任何编程语言的话，那么本教程可能会看起来很吃力。
 
-#### 1.1 保留字与注释
+不管怎么说，在第一章里，我会尽力以浅显的语言来讲解各种编程概念和常用写法。
 
-保留字指的是一些特殊的单词，它们不能用作变量、函数名，而是用来让编译器识别lua语法。
+#### 1.1 lua是一种怎么样的编程语言
+
+##### 1.1.1 lua简介
+
+> Lua 是一种轻量小巧的脚本语言，用标准C语言编写并以源代码形式开放， 其设计目的是为了嵌入应用程序中，从而为应用程序提供灵活的扩展和定制功能。
+>
+> Lua 是巴西里约热内卢天主教大学（Pontifical Catholic University of Rio de Janeiro）里的一个研究小组于 1993 年开发的，该小组成员有：Roberto Ierusalimschy、Waldemar Celes 和 Luiz Henrique de Figueiredo。
+
+我认为用这两句话开篇是恰如其分的。lua不是一种包罗万象的语言，也不是一种可以单独使用的语言。它是一种被设计用来和其他编程语言、应用程序进行配合的语言。
+
+如果把`lua`同`C++`和`python`进行比较，我们可以说：
+
+- `python`的类型灵活，语法简单，有现成的、非常丰富的模块/库可以利用（不用重复造轮子），因而它多用来做科学计算、数据分析、人工智能。
+- `C++`的类型严格，语法较复杂，但是功能强大，在很多方向都可以有强大的应用（造好用的轮子），比如游戏引擎、图形用户界面、音视频处理；也可以作为其他语言的基础（比如编写解释型语言的解释器）。
+- `lua`的内容精简小巧，没有丰富的模块/库，但是运行速度快，适合加入某个应用程序，实现可扩展性（为轮子锦上添花）。
+
+lua特别适合游戏开发、插件开发等等。使用lua作为嵌入式脚本语言的游戏包括魔兽世界、饥荒等。
+
+##### 1.1.2 文明6中的lua简介
+
+当然，我们也要意识到，每种使用lua作为嵌入式语言的游戏，都会为其提供一些具有该游戏特色的接口，用来操作游戏内某种游戏元素、实现高级功能等。有时候，更是会修改或扩展lua本身的语法，使之成为一种变体语言。文明6中的lua也是如此，它不是标准版本的lua，而是一种被称为**HavokScript**的**Lua5.1**的变体和扩展。我们在这章不会讨论**HavokScript**引入的新特性，而着重于讨论基于**Lua5.1**版本的lua基础语法（也许在之后的更新里会讨论，先挖个坑在这里）。
+
+有一点需要非常注意，因为**HavokScript**是基于**Lua5.1**的，所以我们在制作文明6mod的时候，**不能使用Lua5.1之后版本引入的新特性！**虽然我们建议查看**Lua5.3**版本的中文手册，但是这仅仅是因为其查看起来比**Lua5.1**版本的方便。
+
+#### 1.2 标识符，保留字与注释
+
+标识符，指的是我们给变量、常量、函数、方法、类等起的名字。和其他很多语言一样，在lua中，标识符必须以英文字母或下划线开头，可以包含英文字母，数字和下划线。其中，英文字母可以大写也可以小写。
+
+```lua
+--一些合法的标识符示例
+mohd         zara      abc     move_name    a_123
+myname50     _temp     j       a23b9        retVal
+
+--一些不合法的标识符示例
+555aaa asd%w
+```
+
+保留字指的是一些特殊的单词，它们不能用作标识符，而是用来让解释器识别lua语法。
 
 | 布尔值，条件运算符和条件语句 | 循环语句和流程控制 | 函数     | 变量和其他 |
 | ---------------------------- | ------------------ | -------- | ---------- |
@@ -82,32 +137,127 @@ lua程序部分是我比较擅长的内容，为了新人能够更快地入门lu
 --
 ```
 
+多行注释使用双减号加上双方括号
+
+```lua
+--[[
+这里是注释
+]]
+```
 
 
-#### 1.2 变量和作用域，数据类型
 
-这应该不用详细解释。变量的命名，只要不是lua的保留字就行，并且格式和其他语言也相差不多：要求以英文字母开头，可以包含数字和下划线，字母大小写不限。
+#### 1.3 变量和作用域，数据类型
 
-变量的作用域，则具有lua本身的特点。变量默认是全局变量，除非在定义时声明是局部变量。下面展示了全局变量和局部变量的定义和赋值。
+##### 1.3.1 变量和作用域
+
+这里需要讲解全局变量与局部变量的概念。在lua中，变量默认都是全局变量，如果我们在它前面加上`local`关键字，它就成了局部变量。当我们定义一个局部变量时，它的作用域，就被限定为当前的代码块内部。所谓的某个变量的作用域，可以简单地理解为可以访问它的区域。在作用域外访问变量，得到的值为`nil`（我们稍后会讲解`nil`）。
+
+下面展示了全局变量和局部变量的定义和赋值。
 
 ```lua
 my_var_1 = 1;
 local my_var_2 = 2;
 ```
 
-需要注意，在文明6 lua中，我们**应该总是使用局部变量**，不管是文件中的局部变量还是函数中的局部变量。这样能保持代码的封闭性，让我们清楚地知道代码在干什么。
+下面展示了几种不同的作用域：
 
-lua 中有 8 个基本类型分别为：nil、boolean、number、string、userdata、function、thread 和 table。
+```lua
+--文件中
+local my_var_1 = 1;
 
-其中我们只用到userdata和thread之外的几种。看下面这个表，以简单理解这些数据类型与C++和python数据类型的大致对应关系。
+--函数中
+function my_func()
+    local my_var_2 = 1;
+end
 
-| 语言   | 布尔值  | 数字              | 字符串 | 没有/空 | 数组                      |
-| ------ | ------- | ----------------- | ------ | ------- | ------------------------- |
-| C++    | bool    | int/float/double  | char   | void    | 顺序容器/关联容器         |
-| python | bool    | int/float/complex | string | None    | List/Tuple/Set/Dictionary |
-| lua    | boolean | number            | string | nil     | table                     |
+--显式语句块中
+do
+    local my_var_3 = 1;
+end
 
+--条件语句中
+if i > 999 then
+    local my_var_4 = 1;
+end
 
+--循环语句中
+for i=1,10,1 do
+    local my_var_5 = 1;
+end
+```
+
+需要注意，在文明6 lua中，我们**应该总是使用局部变量**，这样能保持代码的封闭性，让我们清楚地知道代码在干什么。
+
+变量既可以先定义，后赋值，也可以在定义的同时赋值：
+
+```lua
+--先定义，后赋值
+local my_var_1;
+my_var_1 = 666
+
+--在定义的时候即赋值
+local my_var_1 = 666;
+```
+
+可以同时对多个变量进行定义和赋值：
+
+```lua
+local a,b,c = 1,2,3;
+```
+
+但是，如果等号右边的值数量不够，则超出的变量将被赋值为`nil`。
+
+```lua
+--此时c被赋值为nil
+local a,b,c = 1,2;
+```
+
+##### 1.3.2 语句，分号的使用
+
+变量的定义和赋值过程，就构成了一个语句。
+
+lua既不像`C++`那样强制要求使用分号来结束语句，也不像`Python`那样主要靠缩进来分割语句。
+
+lua的语句通常靠解释器来智能识别和分割。甚至可以像下面这样，在一行放两个语句，但是我个人不推荐这样写，而是推荐多用整齐的换行和缩进。
+
+lua的语句结束位置也可以直接用分号来指定。
+
+```lua
+--在一行里放两个语句，无分号
+local a = 1 local b = 2
+
+--在一行里放两个语句，有分号
+local a = 1; local b = 2;
+
+--推荐的写法，也就是换行
+local a = 1; 
+local b = 2;
+```
+
+在下个语句以小括号开头时，使用分号是必须的，但是这种情况很少遇见。所以，作为新手，可以完全不管分号，或者像C++那样，严格在每个语句末尾加上分号，看你的喜好。
+
+```lua
+--lua手册给出的一种少见的歧义情况
+a = b + c
+(print or io.write)('done')
+
+--为了避免歧义，应该写成这样
+a = b + c;
+(print or io.write)('done');
+```
+
+##### 1.3.3 数据类型
+
+lua 中有 8 个基本数据类型，分别为：nil、boolean、number、string、userdata、function、thread 和 table。
+
+其中我们只用到userdata和thread之外的6种。看下面这个表，以简单理解这些数据类型与C++和python数据类型的大致对应关系。
+
+| 语言   | 布尔值  | 数字              | 字符串 | 没有/空/无意义 | 数组                      |
+| ------ | ------- | ----------------- | ------ | -------------- | ------------------------- |
+| C++    | bool    | int/float/double  | char   | void           | 顺序容器/关联容器         |
+| python | bool    | int/float/complex | string | None           | List/Tuple/Set/Dictionary |
+| lua    | boolean | number            | string | nil            | table                     |
 
 #### 1.3 运算符和常用数学函数
 
@@ -116,6 +266,8 @@ lua 中有 8 个基本类型分别为：nil、boolean、number、string、userda
 | 关系运算符             | 逻辑运算符   | 算术运算符       |
 | ---------------------- | ------------ | ---------------- |
 | >   <  ==   ~=  >=  <= | and  or  not | +  -  *  /  %  ^ |
+
+需要注意，整除没有相应的运算符，需要使用`math.floor()`或`math.ceil()`。
 
 数学函数
 
@@ -130,7 +282,7 @@ lua 中有 8 个基本类型分别为：nil、boolean、number、string、userda
 | `math.max()`       | 求最大值              |
 | `math.abs()`       | 求绝对值              |
 
-一般掌握这些就足够在文明6mod中应对99%的情况。当然，也有三角函数和对数等的math函数，具体上网搜就能搜到。
+一般掌握这些就足够在文明6mod中应对99%的情况。当然，也有三角函数、对数等的数学函数，具体可以查看Lua中文手册。
 
 
 
@@ -184,7 +336,19 @@ do
 end
 ```
 
-##### 1.5.2 简单for循环
+##### 1.5.2 repeat until循环
+
+和while循环的区别在于，repeat until循环会先执行一次循环体，再进行条件的判断。
+
+```lua
+repeat
+   statements
+until( condition )
+```
+
+使用while循环和repeat until循环，需要特别注意条件的设置，避免程序陷入死循环。
+
+##### 1.5.3 简单for循环
 
 for循环因为可以指定最大循环次数，不会导致死循环，因此非常推荐使用。
 
@@ -194,7 +358,7 @@ for var=exp1,exp2,exp3 do
 end  
 ```
 
-var从exp1变到exp2，exp3是步长，可以省略。例如
+var从exp1变到exp2，exp3是步长，可以省略，如果省略则默认为1。例如
 
 ```lua
 for i=1,10,1 do  
@@ -206,11 +370,11 @@ for i=1,10 do
 end  
 ```
 
-这两种写法是等价的。
+这两种写法是等价的。`i`的变化范围是左闭右闭区间，符合人的直觉。
 
-##### 1.5.3 泛型for循环
+##### 1.5.4 泛型for循环
 
-这是用来遍历整个table（字典或数组）的循环，在文明6lua中使用的相当之多。在下面的1.6.4中会有介绍。
+这是用来遍历整个table（字典或数组）的循环，在文明6 lua中使用的相当之多。在下面的1.6.4中会有介绍。
 
 #### 1.6 table的使用
 
@@ -233,7 +397,7 @@ tinydict = {'Alice': '2341', 'Beth': '9102', 'Cecil': '3258'}
 
 一般来说，键Key在一个字典中是唯一的，值Value则可以重复。
 
->小提示，键值对的概念和文明6数据库中表的主键和非主键的关系其实非常类似哦（如果你之前了解过sql的话，不了解就算了）。例如Units表中UnitType就是主键，通过它可以唯一确定某种单位在Units表中所有其他的属性，比如花费、移动力等等。实际上文明6有一套把GamePlay数据库内容映射到lua种table的机制（用来在lua里查数据库内容会让你方便），这个后面会谈到。
+>小提示，键值对的概念和文明6数据库中表的主键和非主键的关系其实非常类似哦（如果你之前了解过sql的话，不了解就算了）。例如Units表中UnitType就是主键，通过它可以唯一确定某种单位在Units表中所有其他的属性，比如花费、移动力等等。实际上文明6有一套把GamePlay数据库内容映射到lua中table的机制（用来在lua里查数据库内容会让你方便），这个后面会谈到。
 
 ##### 1.6.2 以数组的方式使用table
 
@@ -321,9 +485,14 @@ end
 
 #### 1.7 字符串
 
-lua的字符串操作，文明6mod中用到的并不很多。
+lua中的字符串，使用单引号或者双引号表达均可。
 
-其中一个比较重要的是字符串连接，使用字符串连接运算符
+```lua
+local my_str_1 = 'sss'
+local my_str_2 = "ttt"
+```
+
+字符串操作，在文明6mod中用到的并不很多。其中一个比较重要的是字符串连接，使用字符串连接运算符`..`
 
 ```lua
 local my_str_1 = "sss"
@@ -331,18 +500,27 @@ local my_str_2 = "ttt"
 local my_str_3 = my_str_1 ..  my_str_2 
 ```
 
-然后是转义字符，一般也就用到换行\n和制表\t。
+然后是转义字符，一般也就用到换行`\n`和制表`\t`。
+
+以及求字符串的长度，可以使用`#`运算符
+
+```lua
+local my_str_2 = "ttt"
+local str_len = #my_str_2
+```
 
 另外一些操作列在下表中，文明6mod中用不到的，就不列出了。
 
-| 函数名                                       | 含义                                                         |
-| -------------------------------------------- | ------------------------------------------------------------ |
-| `string.upper()`                             | 字符串全部转为大写字母。                                     |
-| `string.lower()`                             | 字符串全部转为小写字母。                                     |
-| `string.find (str, substr, [init, [plain]])` | 在一个指定的目标字符串 str 中搜索指定的内容 substr，<u>如果找到了一个匹配的子串，就会返回这个子串的起始索引和结束索引，不存在则返回 nil</u>。**init** 指定了搜索的起始位置，默认为 1，可以一个负数，表示从后往前数的字符个数。**plain** 表示是否使用简单模式，默认为 false，true 只做简单的查找子串的操作，false 表示使用使用正则模式匹配。 |
-| `string.len()`                               | 返回所给字符串的长度，如果字符串中包含'\0'，也会被统计为一个字符。 |
-| `string.sub(str, i [, j])`                   | 截取字符串。i是截取开始位置。 j是截取结束位置，默认为 -1，最后一个字符。 |
-| `string.gsub(mainString,findString,replaceString,num)`    | 在字符串中替换。mainString 为要操作的字符串， findString 为被替换的字符，replaceString 要替换的字符，num 替换次数（可以忽略，则全部替换），例如<code>>string.gsub("aaaa","a","z",3);<br/>zzza    3</code>|
+| 函数名                                                 | 含义                                                         |
+| ------------------------------------------------------ | ------------------------------------------------------------ |
+| `string.upper()`                                       | 字符串全部转为大写字母。                                     |
+| `string.lower()`                                       | 字符串全部转为小写字母。                                     |
+| `string.find (str, substr, [init, [plain]])`           | 在一个指定的目标字符串 **str** 中搜索指定的内容 **substr**，<u>如果找到了一个匹配的子串，就会返回这个子串的起始索引和结束索引，不存在则返回 nil</u>。**init** 指定了搜索的起始位置，默认为 1，可以一个负数，表示从后往前数的字符个数。**plain** 表示是否使用简单模式，默认为 false，true 只做简单的查找子串的操作，false 表示使用使用正则模式匹配。 |
+| `string.len()`                                         | 返回所给字符串的长度，如果字符串中包含'\0'，也会被统计为一个字符。 |
+| `string.sub(str, i [, j])`                             | 截取字符串。i是截取开始位置。 j是截取结束位置，默认为 -1，最后一个字符。 |
+| `string.gsub(mainString,findString,replaceString,num)` | 在字符串中替换。**mainString** 为要操作的字符串， **findString** 为被替换的字符，**replaceString** 是要替换的字符，**num** 是替换次数（可以忽略，则全部替换），例如<code>string.gsub("aaaa","a","z",3);<br/>zzza    3</code> |
+
+需要注意，包含中文的字符串比较复杂（涉及到编码方式），我们也没必要去折腾这种字符串，直接使用由英文字母和数字等组成的字符串就可以了。
 
 最后是格式化字符串（这会在文明6mod中用到吗？大概只有某些UI mod会用到）。具体的格式化字符串网上能查到。
 
@@ -351,7 +529,7 @@ local my_str_1 = "现在是上午%d点，温度是%4.2f度"
 local my_str_2 = string.format(my_str_1, 9, 20.54)
 ```
 
-
+至于正则匹配，我觉得新手不需要掌握。想学的话再去网上找资料吧。
 
 #### 1.8 数据类型转换
 
@@ -371,6 +549,7 @@ local my_str_2 = tostring(my_num_2)
 
 ```lua
 function CivilizationHasTrait(sCiv, sTrait)
+    --这个for循环的用法，我们在第二章会讲
     for tRow in GameInfo.CivilizationTraits() do
         if (tRow.CivilizationType == sCiv and tRow.TraitType == sTrait) then
             return true
@@ -389,7 +568,7 @@ end
 
 文明6的lua，主要依赖于“事件”来触发程序运行。(感觉这一特点类似于Qt中的信号-槽函数机制，或者是一些UI编程中的监听器之类的)
 
-举例说明：有一个事件 ，或者叫**Event**，是在区域建设进度更新时候触发，叫`Events.DistrictBuildProgressChanged`。我们希望在建成区域时，获得100金币。因此，我们对这个Event写一个介入的函数，如下
+举例说明：有一个**事件** ，或者叫**Event**，是在区域建设进度更新时候触发，叫`Events.DistrictBuildProgressChanged`。我们希望在建成区域时，获得100金币。因此，我们对这个Event写一个介入的函数，如下
 
 ```lua
 function On_DistrictBuildProgressChanged_ChangeGold(playerID, districtID, cityID, iX, iY,  districtType, era, civilization, percentComplete, iAppeal, isPillaged)
@@ -405,13 +584,13 @@ function On_DistrictBuildProgressChanged_ChangeGold(playerID, districtID, cityID
 
 end
 
---将上面的函数添加到事件DistrictBuildProgressChanged里，这样以来，区域建设进度更新时候就会触发上面那个函数了（还提供了不少参数信息）
+--将上面的函数添加到事件DistrictBuildProgressChanged里，这样一来，区域建设进度更新时候就会触发上面那个函数了（还提供了不少参数信息）
 Events.DistrictBuildProgressChanged.Add(On_DistrictBuildProgressChanged_ChangeGold );
 ```
 
 注意，Event是自带一些参数的，这些参数会作为我们新增的函数的参数。因此，我们在新增槽函数时，要查阅Event支持什么样的参数。
 
-查阅游戏自带的事件，我推荐[这个网站](https://sukritact.github.io/Civilization-VI-Modding-Knowledge-Base/)，由著名modder sukritact制作，总结了文明6大部分的lua接口。
+查阅游戏自带的事件，我推荐[这个网站](https://sukritact.github.io/Civilization-VI-Modding-Knowledge-Base/)，由著名modder Sukritact制作，总结了文明6大部分的lua接口。
 
 
 
@@ -460,7 +639,7 @@ pPlot:SetProperty('PROP_INFRASTRUCTURE', 2);
 ```
 **如上所述，文明6的lua，实际上就是对各种各样的对象进行操作！**
 
-至于都有什么对象，还是推荐去看[sukritact的网站](https://sukritact.github.io/Civilization-VI-Modding-Knowledge-Base/)。
+至于都有什么对象，还是推荐去看[Sukritact的网站](https://sukritact.github.io/Civilization-VI-Modding-Knowledge-Base/)。
 
 我们这里也做一简要总结：
 
@@ -495,7 +674,7 @@ CityManager.TransferCity(pCity, newPlayerID)
 local pCity = CityManager.GetCity(playerID, cityID)
 ```
 
->小提示：你可能注意到了，像pCity这样的具体对象通常用:调用函数，而CityManager这样的管理者对象一般用.调用函数。实际上确实如此。
+>小提示：你可能注意到了，像pCity这样的具体对象通常用:调用函数，而CityManager这样的管理者对象一般用.调用函数。实际上确实如此。具体某个函数要用什么方式来调用，最好还是抄mod或者游戏原文件。
 
 
 ##### 2.2.3 补充-modifier的主体也是一种对象
@@ -513,11 +692,11 @@ local pCity = CityManager.GetCity(playerID, cityID)
 
 很多新手会听说Gameplay环境和UI环境而不理解其含义。其实如果不做文明6mod，也遇不到这么抽象和难用的东西。
 
-简单来说，UI主要用来读取数据，并且相应地在图形用户界面上给玩家看；除了修改官方的UI，也可以制作新的UI。Gameplay则主要用来进行改变对象属性的操作。
+**简单来说，UI主要用来读取数据，并且相应地在图形用户界面上给玩家看，以及让玩家发起各种操作的请求；除了修改官方的UI，也可以制作新的UI。Gameplay则主要用来进行改变对象属性的操作（操作的逻辑可能是自己写的，也可能是来自UI环境的请求）。**
 
 两者可以使用的方法（函数）和事件有共通的，也有独有的。
 
-如何判断某种环境用什么函数？答案还是去看[sukritact的网站](https://sukritact.github.io/Civilization-VI-Modding-Knowledge-Base/)。
+如何判断某种环境用什么函数？答案还是去看[Sukritact的网站](https://sukritact.github.io/Civilization-VI-Modding-Knowledge-Base/)。
 
 | 环境     | 特点                       | 如何在modinfo里使用                               |
 | -------- | -------------------------- | ------------------------------------------------- |
@@ -621,7 +800,7 @@ UI环境稍微复杂一些，我们这里仅仅简单介绍一下怎么加载文
 
 而有些mod会定义新的GameEvents，比如和而不同等等。想要这样做，需要使用下面的代码（这里的代码示例来自于浪子的奇观提醒mod）：
 
-**1.先在Gameplay环境写以下语句，并且要确保这个lua文件的加载顺序较低。**
+**1.先在Gameplay环境写以下语句**
 
 ```lua
 ExposedMembers.GameEvents = GameEvents
@@ -748,7 +927,7 @@ print("RR function gameplay initialized!");
 | -------- | ------------------------------------------------------------ |
 | .dds     | 直接导入图片。优点是，不需要下载官方的美术资源和使用官方的Asset Editor；缺点是，文件较多时modinfo会变得很长。 |
 | .xml     | 直接替换官方UI的同名.xml文件（或其他mod新增UI的.xml文件），也就是直接修改了控件的定义。**要慎用，能不这样做就不这样做（除非是FrontEnd的UI，必须这样做）。**CQUI就是因为修改了官方的.xml，并且删除了很多官方的控件，导致兼容性爆炸！ |
-| .lua     | 直接替换官方UI的同名.lua文件（或者其他mod新增的.lua文件）。如果之前没有这个名字的文件，则把它作为一个lua模块放入游戏中（但是不直接发挥作用，需要其他文件去引用它）。 |
+| .lua     | 直接替换官方UI的同名.lua文件（或者其他mod新增的.lua文件）。如果之前没有这个名字的文件，则把它作为一个lua模块放入游戏中（但是不直接发挥作用，需要其他文件去**include**它）。 |
 
 ##### 2.6.2 include和模块的概念
 
@@ -767,7 +946,7 @@ print("RR function gameplay initialized!");
 import numpy as np
 ```
 
-需要注意的是，文明6lua和一般lua导入模块的机制并不一样！一般来说，lua的模块需要一个单独的.lua文件，以table的方式和特殊格式定义，再在其他文件中通过require()函数导入（请参考[此网站](https://www.runoob.com/lua/lua-modules-packages.html)）。但是，文明6lua采用的是include()，这是为什么呢？
+需要注意的是，文明6lua和一般lua导入模块的机制并不一样！一般来说，lua的模块需要一个单独的.lua文件，以table的方式和特殊格式定义，再在其他文件中通过require()函数导入（请参考[此网站](https://www.runoob.com/lua/lua-modules-packages.html)）。但是，文明6lua采用的是include()，比如
 
 ```lua
 --在\Base\Assets\UI\Panels文件夹下找到UnitPanel.lua文件，可以看到下面这样，导入其他lua文件的语句
@@ -782,7 +961,7 @@ include( "EspionageSupport" );
 include("GameCapabilities");
 ```
 
-这是因为，文明6的lua不是标准的lua！而是一种叫做**HavokScript**的Lua5.1的变型和扩展。我们是可以使用Agent Ransack软件在文明6游戏的.dll文件中搜到havokscript的字样的。如果有兴趣，可以看看Sukritact对这种语言的[描述文章](https://sukritact.github.io/civilization-modding-wiki/civ-6/lua/articles/About-HavokScript/)。
+我们在1.1节提到过，文明6的lua不是标准的lua，而是一种叫做**HavokScript**的Lua5.1的变型和扩展。我们可以使用Agent Ransack软件在文明6游戏的.dll文件中搜到havokscript的字样。如果有兴趣，可以看看Sukritact对这种语言的[描述文章](https://sukritact.github.io/civilization-modding-wiki/civ-6/lua/articles/About-HavokScript/)。
 
 注意，正因为这样，所以在文明6lua中，最高只能使用Lua5.1的函数。
 
@@ -819,6 +998,17 @@ include "SP_Support"
 ```
 
 其中，前两个是官方的.lua文件，最后一个其实就是Summer Pockets文明mod自定义的“核心代码”。
+
+**需要特别注意，在这样的核心代码中，只能包含函数和常量！不能包含任何可以直接执行的语句，以及Event等。这是因为，include的同时，核心代码就会被执行一遍！但是如果我们没有可执行内容，而只有函数和常量，就不会出奇怪的问题。**
+
+```lua
+--核心代码的例子，只能包含函数和常量，不应该被其他文件修改，否则其行为会难以预料！
+--常量必须是全局变量
+my_const = 1
+
+function my_func()
+end
+```
 
 
 
@@ -903,7 +1093,7 @@ local districtItem = GameInfo.Districts["DISTRICT_CAMPUS"]
 
 --获取到的districtItem代表Districts表中的一行
 
---可以通过districtItem获取索引，可以理解Index是表中隐藏的一列
+--可以通过districtItem获取索引，可以理解为，Index是表中隐藏的一列
 local districtIndex = districtItem.Index
 --可以通过districtItem获取区域类型名（字符串）
 local districtTypeStr = districtItem.DistrictType
@@ -918,7 +1108,7 @@ if new_districtItem ~= nil then
 end
 
 --特别地，如果函数返回的区域不一定存在，也要先做判断
---如果单元格没有区域，则返回-1
+--如果单元格没有区域，pPlot:GetDistrictType()会返回-1
 local plotDistrictType = pPlot:GetDistrictType()
 local plot_districtItem = GameInfo.Districts[plotDistrictType]
 if plot_districtItem ~= nil then
@@ -1097,15 +1287,17 @@ end
 GameEvents.GetPlayerCurrentDistrictsNumberLTKWu.Add(GetPlayerCurrentDistrictsNumberLTKWu)
 ```
 
+需要特别注意，这种方法**只能在该玩家的回合使用**！在其他玩家的回合使用，则什么都不会发生。
+
 
 
 #### 2.10 如何避免lua导致的多人联机不同步
 
 我们只能尽量避免导致联机不同步的写法。但是相当一部分的写法的联机可用性仍然成谜。况且，就算不加任何mod，文明6联机也容易数据不同步。
 
-目前，我们不推荐的写法：
+目前，我们**不推荐**的写法：
 
-- 使用`math.random()`随机数函数。推荐使用`Game.GetRandNum(n)`，它产生[0, n-1]之间的整数。
+- 使用`math.random()`随机数函数。反之，推荐使用`Game.GetRandNum(n)`，它产生[0, n-1]之间的整数。
 - 任何`ExposedMembers`
 - 滥用`Game.GetLocalPlayer()`，尤其是在Gameplay环境中
 - 使用部分事件，比如`Events.LocalPlayerChanged`这种带着`local`的事件
