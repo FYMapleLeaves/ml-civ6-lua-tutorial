@@ -134,14 +134,14 @@ myname50     _temp     j       a23b9        retVal
 注释使用两个减号
 
 ```lua
---
+--这里是单行注释
 ```
 
 多行注释使用双减号加上双方括号
 
 ```lua
 --[[
-这里是注释
+这里是多行注释
 ]]
 ```
 
@@ -194,7 +194,7 @@ end
 ```lua
 --先定义，后赋值
 local my_var_1;
-my_var_1 = 666
+my_var_1 = 666;
 
 --在定义的时候即赋值
 local my_var_1 = 666;
@@ -203,6 +203,7 @@ local my_var_1 = 666;
 可以同时对多个变量进行定义和赋值：
 
 ```lua
+--此时abc都正常赋值
 local a,b,c = 1,2,3;
 ```
 
@@ -259,6 +260,31 @@ lua 中有 8 个基本数据类型，分别为：nil、boolean、number、string
 | python | bool    | int/float/complex | string | None           | List/Tuple/Set/Dictionary |
 | lua    | boolean | number            | string | nil            | table                     |
 
+我们需要特别讲一下nil。**在lua中，nil主要用来与其他东西比较，而体现它的与众不同**，可以理解为无、空，或无意义。我们前面提到过，当一个变量被定义了，而没有赋值，则它的值就是nil。nil非常重要，因为很多函数或方法，都需要参数非nil才能正常运行。因此，我们经常需要判断某个变量的值是不是nil。
+
+```lua
+--判断变量是不是nil
+if my_var_1 ~= nil then
+   --进行下一步逻辑
+end
+```
+
+此外，nil在进行条件判断的时候，会被视作`false`，而除了`false`和nil的其他任何值，都会被视为`true`。特别地，数字0也会被视为`true`。这一点和某些其他语言非常不同，需要特别注意。
+
+```lua
+local my_var_1 = nil
+if my_var_1 then
+    --这里的代码不可能被执行，因为nil会被视为false
+end
+
+local my_var_2 = 0
+if my_var_2 then
+    --这里的代码会被执行，因为0会被视为true
+end
+```
+
+
+
 #### 1.3 运算符和常用数学函数
 
 运算符
@@ -293,15 +319,18 @@ lua 中有 8 个基本数据类型，分别为：nil、boolean、number、string
 ```lua
 local i = 1
 
+--if
 if i==1 then
 end
 
+--if else
 if i==1 then
     local var_1 = 1
 else
    	local var_2 = 2
 end
 
+--if elseif else
 if i==1 then
     local var_1 = 1
 elseif i==2 then
@@ -312,6 +341,7 @@ else
    	local var_100 = 100
 end
 
+--if elseif
 if i==1 then
     local var_1 = 1
 elseif i==2 then
@@ -338,12 +368,15 @@ end
 
 ##### 1.5.2 repeat until循环
 
-和while循环的区别在于，repeat until循环会先执行一次循环体，再进行条件的判断。
+和while循环的区别在于，
+
+- while循环在条件满足时进行循环，而repeat until在条件满足时退出循环
+- repeat until循环会先执行一次循环体，再进行条件的判断
 
 ```lua
 repeat
    statements
-until( condition )
+until(condition)
 ```
 
 使用while循环和repeat until循环，需要特别注意条件的设置，避免程序陷入死循环。
@@ -361,6 +394,7 @@ end
 var从exp1变到exp2，exp3是步长，可以省略，如果省略则默认为1。例如
 
 ```lua
+--这两种写法等价
 for i=1,10,1 do  
     print(i)
 end  
@@ -375,6 +409,31 @@ end
 ##### 1.5.4 泛型for循环
 
 这是用来遍历整个table（字典或数组）的循环，在文明6 lua中使用的相当之多。在下面的1.6.4中会有介绍。
+
+##### 1.5.5 break语句
+
+在循环语句中，使用`break`以跳出当前层的循环
+
+```lua
+for i=1,10,1 do  
+    if i > 5 then
+        break
+    end
+end  
+
+--如果有多层循环，只会跳出一层
+for i=1,10,1 do  
+    for j=1,10,1 do  
+    	if j > 5 then
+        	break
+    	end
+    end
+end
+```
+
+##### 1.5.6 goto语句
+
+`goto`语句在lua中是存在的，但是我不打算详细讲。`goto`在99%的情况下都有替代写法，而它本身太影响代码的流程控制了，所以不要使用`goto`。
 
 #### 1.6 table的使用
 
@@ -404,8 +463,10 @@ tinydict = {'Alice': '2341', 'Beth': '9102', 'Cecil': '3258'}
 通常，我们先建一个空table，然后使用`table.insert()`插入数据
 
 ```lua
+--定义空table
 local p_Civilizations_List = {}
 
+--插入数据
 table.insert(p_Civilizations_List, "CIVILIZATION_AMERICA")
 table.insert(p_Civilizations_List, "CIVILIZATION_ARABIA")
 table.insert(p_Civilizations_List, "CIVILIZATION_BRAZIL")
@@ -413,22 +474,24 @@ table.insert(p_Civilizations_List, "CIVILIZATION_BRAZIL")
 
 这样，默认是在数组的最后插入数据。引用的时候，可以直接以从1开始的整数索引来引用。
 
-**注意，和很多其他语言不同，lua的数组型table的下标是从1开始，而不是0！（这点不知道坑了多少从其他语言过来的同学了）**
+**注意，和很多其他语言不同，lua的数组型table的索引是从1开始，而不是0！（这点不知道坑了多少从其他语言过来的同学了）**
 
 ```lua
---打印CIVILIZATION_AMERICA
+--引用数据，打印 CIVILIZATION_AMERICA
 print(p_Civilizations_List[1])
 ```
 
 但是，`table.insert()`也可以在指定位置插入，虽然在文明6mod中很少见，也确实难以想到有什么用
 
 ```lua
+--在定义的时候就为数组赋值
 local p_Civilizations_List = {"CIVILIZATION_AMERICA", "CIVILIZATION_ARABIA", "CIVILIZATION_BRAZIL"}
 
-table.insert(p_Civilizations_List, 2, "CIVILIZATION_CHINA")
+--在第2个位置插入
+table.insert(p_Civilizations_List, 2, "CIVILIZATION_MALI")
 ```
 
-上面都是储存字符串的数组，当然也可以用在数字类型，
+上面都是储存字符串的数组，当然也可以用在数字类型
 
 ```lua
 local exp_max = 500
@@ -443,24 +506,38 @@ local greatPeople_Level_Required_Exp_List = {0, 15, 38, 71, 115, 169, 234, 311, 
 | `table.remove (table, [pos])`        | 返回table数组部分位于pos位置的元素. 其后的元素会被前移。pos参数可选, 默认为table长度, 即从最后一个元素删起。（注意，删除中间元素后，其后元素的数字索引会变化！！！这是个**易错点**！！！） |
 | `#table`                             | 求table中元素个数                                            |
 
+```lua
+--求数组长度
+local exp_max = 500
+local greatPeople_Level_Required_Exp_List = {0, 15, 38, 71, 115, 169, 234, 311, 400, exp_max}
+local level_num = #greatPeople_Level_Required_Exp_List
+```
+
+
+
 ##### 1.6.3 以字典的方式使用table
 
-以字典方式使用table，通常指以字符串作为键，值则可以是字符串，也可以是数字。例如
+以字典方式使用table，通常指以字符串作为Key，Value则可以是字符串，也可以是数字、布尔值、甚至另一个表。例如
 
 ```lua
+--以字典的方式使用table
 local params = {
-    OnStart = 'ArtifactExtracted_GreatPeopleTraitOperation',
-	UnitID = 1,
-	iX = 11, 
-	iY = 45,
-	GreatWorkType = 14
+    OnStart = 'TestOperation',
+	UnitID = 65535,
+    CanPurchase = true,
+	AdvancedSettings = {
+        DefaultValue = 1, 
+        RepeatNum = 2
+    },
 }
 ```
 
-特别地，这里的键如果是字符串，则可以不加引号！并且相应的值可以直接用.来使用和赋值：
+特别地，当Key是字符串时，可以不加引号和方括号，而是使用符号.加字符串的形式，来引用或者更新Value：
 
 ```lua
+--这两种写法是等价的
 local m_unitID = params.UnitID
+local m_unitID = params["UnitID"]
 ```
 
 注意，**要么以数组的方式使用table，要么以字典的方式使用table，一定不要混用**！！！
@@ -470,14 +547,31 @@ local m_unitID = params.UnitID
 现在，有了table，我们可以使用这样的for循环来遍历table
 
 ```lua
-local p_Civilizations_List = {"CIVILIZATION_AMERICA", "CIVILIZATION_ARABIA", "CIVILIZATION_BRAZIL"}
-for key, value in pairs(p_Civilizations_List) do
+local params = {
+    OnStart = 'TestOperation',
+	UnitID = 65535,
+    CanPurchase = true,
+	AdvancedSettings = {
+        DefaultValue = 1, 
+        RepeatNum = 2
+    },
+}
+for key, value in pairs(params) do
     print("key=\t", key)
     print("value=\t", value)
 end
 ```
 
-当然，对于数组型的table（下标是从1开始的连续整数，且值不包括nil），也可以使用ipairs()。
+当然，对于数组型的table（下标/索引/key是从1开始的连续正整数，且值不包括nil），也可以使用ipairs()。
+
+```lua
+--ipairs()只能用于数组型table
+local p_Civilizations_List = {"CIVILIZATION_AMERICA", "CIVILIZATION_ARABIA", "CIVILIZATION_BRAZIL"}
+for key, value in ipairs(p_Civilizations_List) do
+    print("key=\t", key)
+    print("value=\t", value)
+end
+```
 
 **我推荐数组型的table使用ipairs()，其他情形使用pairs()。**这也是为什么table的字典和数组类型不推荐混用的原因之一（在遍历的时候容易出现奇怪现象）。
 
@@ -485,11 +579,19 @@ end
 
 #### 1.7 字符串
 
-lua中的字符串，使用单引号或者双引号表达均可。
+lua中的字符串，使用单引号或者双引号表达均可。也可以使用双方括号，但是不推荐这种写法。
 
 ```lua
+--推荐使用单引号或者双引号
 local my_str_1 = 'sss'
 local my_str_2 = "ttt"
+
+--不推荐这种写法
+local multilineString = [[
+This is a multiline string.
+It can contain multiple lines of text.
+No need for escape characters.
+]]
 ```
 
 字符串操作，在文明6mod中用到的并不很多。其中一个比较重要的是字符串连接，使用字符串连接运算符`..`
@@ -500,7 +602,7 @@ local my_str_2 = "ttt"
 local my_str_3 = my_str_1 ..  my_str_2 
 ```
 
-然后是转义字符，一般也就用到换行`\n`和制表`\t`。
+然后是转义字符，一般也就用到反斜杠`\\`，换行`\n`和制表`\t`。
 
 以及求字符串的长度，可以使用`#`运算符
 
@@ -518,7 +620,7 @@ local str_len = #my_str_2
 | `string.find (str, substr, [init, [plain]])`           | 在一个指定的目标字符串 **str** 中搜索指定的内容 **substr**，<u>如果找到了一个匹配的子串，就会返回这个子串的起始索引和结束索引，不存在则返回 nil</u>。**init** 指定了搜索的起始位置，默认为 1，可以一个负数，表示从后往前数的字符个数。**plain** 表示是否使用简单模式，默认为 false，true 只做简单的查找子串的操作，false 表示使用使用正则模式匹配。 |
 | `string.len()`                                         | 返回所给字符串的长度，如果字符串中包含'\0'，也会被统计为一个字符。 |
 | `string.sub(str, i [, j])`                             | 截取字符串。i是截取开始位置。 j是截取结束位置，默认为 -1，最后一个字符。 |
-| `string.gsub(mainString,findString,replaceString,num)` | 在字符串中替换。**mainString** 为要操作的字符串， **findString** 为被替换的字符，**replaceString** 是要替换的字符，**num** 是替换次数（可以忽略，则全部替换），例如<code>string.gsub("aaaa","a","z",3);<br/>zzza    3</code> |
+| `string.gsub(mainString,findString,replaceString,num)` | 在字符串中替换。**mainString** 为要操作的字符串， **findString** 为被替换的字符，**replaceString** 是要替换的字符，**num** 是替换次数（可以忽略，则全部替换），例如string.gsub("aaaa","a","z",3); |
 
 需要注意，包含中文的字符串比较复杂（涉及到编码方式），我们也没必要去折腾这种字符串，直接使用由英文字母和数字等组成的字符串就可以了。
 
@@ -529,25 +631,30 @@ local my_str_1 = "现在是上午%d点，温度是%4.2f度"
 local my_str_2 = string.format(my_str_1, 9, 20.54)
 ```
 
-至于正则匹配，我觉得新手不需要掌握。想学的话再去网上找资料吧。
+至于正则匹配，我认为新手不需要掌握。想学的话再去网上找资料吧。
 
 #### 1.8 数据类型转换
 
 一般只会用到字符串和数字互相转换
 
 ```lua
+--字符串转数字
 local my_str_1 = "666"
 local my_num_1 = tonumber(my_str_1)
 
+--数字转字符串
 local my_num_2 = 777
 local my_str_2 = tostring(my_num_2)
 ```
 
 #### 1.9 函数
 
-函数，和很多其他语言一样，接受参数并且有返回值。参数和返回值既可以是数字、布尔值，也可以是字符串和table
+函数，和很多其他语言一样，接受参数并且有返回值。参数和返回值既可以是数字、布尔值，也可以是字符串和table。
+
+使用return以（提前）结束函数运行，并指定返回值。
 
 ```lua
+--定义函数
 function CivilizationHasTrait(sCiv, sTrait)
     --这个for循环的用法，我们在第二章会讲
     for tRow in GameInfo.CivilizationTraits() do
@@ -557,9 +664,26 @@ function CivilizationHasTrait(sCiv, sTrait)
     end
     return false
 end
+
+--定义函数
+function calculate_x_2(x)
+    return x*x
+end
+
+--调用函数
+local x_2 = calculate_x_2(666)
+
+
+--定义没有返回值的函数
+function print666()
+    print("666")
+end
+
+--调用函数时得到nil
+local result = print666()
 ```
 
-
+如果没有显式指定返回值，则函数默认返回nil。
 
 
 ### Chapter2: 简单的文明6 lua
@@ -2133,7 +2257,7 @@ notificationData[ParameterTypes.MESSAGE] = Locale.Lookup(m_NotificationInfo.Mess
 notificationData[ParameterTypes.SUMMARY] = Locale.Lookup(m_NotificationInfo.Summary)
 notificationData[ParameterTypes.LOCATION] = { x = params.X, y = params.Y }
 --第一个参数是playerID，第二个是通知的Hash，最后一个是信息table
-NotificationManager.SendNotification(playerID, m_RewardNotificationInfo.Hash, notificationData)	
+NotificationManager.SendNotification(playerID, m_NotificationInfo.Hash, notificationData)	
 ```
 
 注意，如果您想要送达的通知中含有某个变量，您需要先在文本中写：
@@ -2958,25 +3082,26 @@ end
 
 经过上述的例子，我们总结出主函数`GenerateMap`的以下顺序：
 
-1. 确定海陆划分（大陆划分应该也是在这时候生成的）
+1. 确定海陆划分
 2. 为陆地生成不同地形，如果愿意的话，可以在陆地边缘多扩展几格浅海
-3. 生成火山
-4. 生成河流
-5. 生成湖泊
-6. 生成地貌
-7. 生成悬崖
-8. 生成自然奇观
-9. 生成特殊地貌，比如地热（在大陆交界处），绿洲（不与其他地貌相邻）
-10. 标记海岸低地
-11. 生成资源
-12. 生成启动位置
-13. 生成村庄
+3. 标记大陆
+4. 根据大陆边缘生成火山
+5. 生成河流
+6. 生成湖泊
+7. 生成地貌
+8. 生成悬崖
+9. 生成自然奇观
+10. 生成特殊地貌，比如地热（在大陆交界处），绿洲（不与其他地貌相邻）
+11. 标记海岸低地
+12. 生成资源
+13. 生成启动位置
+14. 生成村庄
 
 在整个地图文件中，除了主函数必须叫`GenerateMap`，我们可以定义和各种`Generator`中函数同名的函数来替代其功能，这是一种函数重载。如果不理解的话，多看看官方的不同随机地图就能看懂。
 
 必要时，您也可以使用`ImportFiles`的方式，直接替代官方的基础`Generator`。
 
-真实河流地图，其实就是在2和3之间加入了大河地形，在9和10之间加入了大河中的特殊地貌。
+真实河流地图，其实就是在2和3之间加入了大河地形，在10和11之间加入了大河中的特殊地貌。
 
 #### 7.2 静态地图
 
